@@ -1,0 +1,15 @@
+.notification-model {
+      .close-icon {
+        position: absolute;
+        right: 0;
+        color: rgba(0,0,0,0.54);
+      }
+    .action-buttons {
+      border-top: 1px solid #d8d8d8;
+      margin-top: 20px;
+      button {
+        margin-left: 75%;
+      }
+    }
+  }
+  

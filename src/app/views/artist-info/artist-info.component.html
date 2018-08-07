@@ -1,0 +1,65 @@
+<form #artistInfoForm="ngForm">
+      <mat-card class="container"> 
+          <mat-card-title>Artist Info</mat-card-title>
+          <mat-card-content>
+              <div class="row">
+                <div class="col-5">
+                    <mat-form-field>
+                        <label for="title" class="required">Artist Name</label>
+                        <input matInput name="title" [(ngModel)]="artist.title" required>
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <label for="country" class="required">Country</label>
+                        <mat-select [(ngModel)]="artist.country" name="country" required>
+                          <mat-option *ngFor="let country of countries" [value]="country.code">
+                            {{country.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <label for="people" class="required">No. of people on stage</label>
+                        <mat-select name="people" [(ngModel)]="artist.peopleCount" required>
+                          <mat-option *ngFor="let member of members"  [value]="member+1">
+                                {{member + 1}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-7">
+                    <mat-form-field class="example-full-width col-6">
+                        <label for="description" class="required">Description EN</label>
+                        <textarea matInput name="description" rows="8" [(ngModel)]="artist.description" required></textarea>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 image-upload">
+                        <!-- Area where user drops the files to upload -->
+                        <label>
+                            <strong>Add Photo(s)</strong>
+                            <small class="required">Required</small>
+                        </label>
+                        <div class="drop-zone" (drop)="filesDropped($event)" (dragover)="allowFilesDrag($event)">
+                            <div class="drop-zone-text">
+                                <span *ngIf="imageUploading">
+                                    <mat-spinner [diameter]= "40" class="progress-spinner"></mat-spinner>
+                                </span>
+                                <p *ngIf="!imageUploading">Drop files to upload, or
+                                        <span>
+                                            <input type="file" id="filesUpload" accept=".jpg, .jpeg, .png" 
+                                             multiple name="imageUpload" class="browse-file-button" 
+                                            (change)="uploadImages($event.target)">
+                                            <label for="filesUpload" class="enable-button">browse</label>
+                                        </span>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+              </div>
+          </mat-card-content>
+          <mat-card-actions>
+                <button mat-raised-button type="button" color="primary" [disabled]="!artistInfoForm.form.valid || imagesUploaded.length <=0 " (click)="submitArtistForm()">Submit</button>
+          </mat-card-actions>
+      </mat-card>
+</form>
+
